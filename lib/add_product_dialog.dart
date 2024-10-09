@@ -3,6 +3,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class AddProductDialog extends StatefulWidget {
+  const AddProductDialog({super.key});
+
   @override
   _AddProductDialogState createState() => _AddProductDialogState();
 }
@@ -12,7 +14,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   String? _condition;
-  List<XFile> _images = [];
+  final List<XFile> _images = [];
   final ImagePicker _picker = ImagePicker();
 
   bool _isFormValid() {
@@ -58,9 +60,9 @@ class _AddProductDialogState extends State<AddProductDialog> {
   }
 
   void _uploadImages() async {
-    final List<XFile>? pickedImages =
+    final List<XFile> pickedImages =
         await _picker.pickMultiImage(imageQuality: 80);
-    if (pickedImages != null && _images.length + pickedImages.length <= 4) {
+    if (_images.length + pickedImages.length <= 4) {
       setState(() {
         _images.addAll(pickedImages);
       });
@@ -135,10 +137,10 @@ class _AddProductDialogState extends State<AddProductDialog> {
               onPressed: () {
                 _showImageOptions(context);
               },
-              child: const Text('UPLOAD IMAGES', style: TextStyle(color: Colors.black)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
               ),
+              child: const Text('UPLOAD IMAGES', style: TextStyle(color: Colors.black)),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -155,10 +157,10 @@ class _AddProductDialogState extends State<AddProductDialog> {
                   );
                 }
               },
-              child: const Text('SELL', style: TextStyle(color: Colors.black)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
               ),
+              child: const Text('SELL', style: TextStyle(color: Colors.black)),
             ),
             const SizedBox(height: 20),
             if (_images.isNotEmpty) ...[

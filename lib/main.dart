@@ -3,13 +3,15 @@ import 'home_page.dart';
 import 'sign_up.dart'; // Import the HomePage file
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
     );
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -38,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       // Show error if fields are empty
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please enter both username and password"),
         ),
       );
@@ -118,12 +122,12 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   _login(context);
                 },
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.orange),
+                ),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                   child: Text('LOGIN', style: TextStyle(color: Colors.black)),
-                ),
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.orange),
                 ),
               ),
               const SizedBox(height: 20),
@@ -138,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
+                        MaterialPageRoute(builder: (context) => const SignUpPage()),
                       );
                     },
                     child: const Text(

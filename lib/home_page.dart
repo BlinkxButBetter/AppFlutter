@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:convert'; // For working with JSON
 import 'package:carousel_slider/carousel_slider.dart'; // Carousel package
 import 'add_product_dialog.dart'; // Ensure this file exists
-import 'main.dart'; // Ensure this file exists
+// Ensure this file exists
 
 class HomePage extends StatefulWidget {
   final String username;
 
-  HomePage({Key? key, required this.username}) : super(key: key);
+  const HomePage({super.key, required this.username});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
         "Desc": "Bluetooth earbuds with charging case, barely used.",
         "CurPrice": 40.00,
         "preview": [
-          "https://springbootbackend-6lib.onrender.com/images/get/6702c9c9aaff2a5a56b8a166/"
+          "https://springbootbackend-6lib.onrender.com/images/get/6706b4f6e175e449d52c108c/"
         ]
       },
       {
@@ -114,7 +114,8 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFCF3CF),
+      // backgroundColor:  const Color(0xFFFCF3CF),
+      backgroundColor:  Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,54 +129,58 @@ class _HomePageState extends State<HomePage> {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 10),
+            // const SizedBox(height: 10),
+
 
             // Carousel for product images with titles
             CarouselSlider(
               options: CarouselOptions(
-                height: 300.0,
+                height: 270.0,
                 autoPlay: true,
                 enlargeCenterPage: true,
                 enableInfiniteScroll: true,
                 aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
+                viewportFraction: 0.9, // Adjust this to change the spacing between items
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enlargeStrategy: CenterPageEnlargeStrategy.height,
               ),
               items: carouselImages.map((imageUrl) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: Image.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                            height: 250,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add horizontal padding between items
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0),
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                              height: 200,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          heroProduct['Name'],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                          const SizedBox(height: 8),
+                          Text(
+                            heroProduct['Name'],
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 );
               }).toList(),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 0),
 
             // Categories with horizontal scrolling items
             for (var category in categories) ...[
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Text(
                   category['name'],
                   style: const TextStyle(
@@ -185,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 220,
+                height: 240,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: category['items'].length,
@@ -195,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                       width: 200,
                       margin: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFCF3CF),
+                        color:  Colors.white,
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Column(
@@ -205,6 +210,8 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(10.0),
                               topRight: Radius.circular(10.0),
+                              bottomLeft: Radius.circular(10.0),
+                              bottomRight: Radius.circular(10.0)
                             ),
                             child: Image.network(
                               item['preview'][0],
@@ -224,6 +231,8 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
@@ -238,6 +247,7 @@ class _HomePageState extends State<HomePage> {
                                   item['Desc'],
                                   style: const TextStyle(
                                     fontSize: 12,
+                                    color: Colors.blueGrey
                                   ),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -256,45 +266,45 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
      bottomNavigationBar: BottomAppBar(
-  color: Colors.white,
+  color: Colors.orange,
   child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
       IconButton(
-        icon: const Icon(Icons.home, color: Colors.black),
+        icon: const Icon(Icons.home, color: Colors.white),
         onPressed: () {
           // Add your logic for Home button
         },
       ),
       IconButton(
-        icon: const Icon(Icons.chat_bubble, color: Colors.black),
+        icon: const Icon(Icons.chat_bubble, color: Colors.white),
         onPressed: () {
           // Add your logic for Chat button
         },
       ),
-      Container(
+      SizedBox(
         width: 50,  // Adjust the width as needed
         height: 50, // Adjust the height as needed
         child: FloatingActionButton(
-          backgroundColor: Colors.orange,
-          child: const Icon(Icons.add),
+          backgroundColor: Colors.white,
+          child: const Icon(Icons.add , color: Colors.orange,),
           onPressed: () {
             // Show the add product dialog
             showDialog(
               context: context,
-              builder: (context) => AddProductDialog(),
+              builder: (context) => const AddProductDialog(),
             );
           },
         ),
       ),
       IconButton(
-        icon: const Icon(Icons.shopping_cart, color: Colors.black),
+        icon: const Icon(Icons.shopping_cart, color: Colors.white),
         onPressed: () {
           // Add your logic for Cart button
         },
       ),
       IconButton(
-        icon: const Icon(Icons.logout, color: Colors.black),
+        icon: const Icon(Icons.logout, color: Colors.white),
         onPressed: () {
           // Add your logic for Sign Out button
         },
